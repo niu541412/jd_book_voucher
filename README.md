@@ -15,7 +15,7 @@ console.log(price);
 
 以下实际是S-lang语言的代码，类C。
 最后如果凑整成功，会打印结果。
-两个参数sum_expect是目标价格,tolerance是可以容忍的偏差。
+两个参数sum_expect是目标价格,tolerance是可以容忍的偏差。stack_1是上面代码获取的初始价格单
 以后会改成JavaScript版本，方便运行。
 
 
@@ -25,7 +25,7 @@ define jd_book(sum_expect,tolerance)
         isSuccess = 1;
         n = 100000;
 
-        stack_1=[207, 33.8, 115.2, 58.7, 36.5, 62.8, 87.5, 45.6, 159.6, 40.5, 53.1, 98.7, 834.7, 142.8, 232.8, 52.2, 64.6, 46.6, 50.2, 171, 27.4, 261.6];
+        stack_1=[207, 33.8, 115.2, 58.7, 36.5, 62.8, 87.5, 45.6, 171, 27.4, 261.6];
         stack_2 = Double_Type [length(stack_1)];
         while (isSuccess && n)
         {
