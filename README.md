@@ -44,7 +44,7 @@ function jd_book(PromoName, ExpectedSum, Tolerance) {
     t = pool.reduce(sum);
     t = Math.round(t * 100) / 100.00;
     if (t > ExpectedSum + Tolerance || t < ExpectedSum - Tolerance) {
-      i = Math.floor(Math.random() * poor.length);
+      i = Math.floor(Math.random() * price.length);
       temp1 = pool[i];
       temp2 = backup[i];
       pool[i] = temp2;
