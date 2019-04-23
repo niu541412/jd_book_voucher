@@ -18,26 +18,28 @@ function jd_book(PromoName, ExpectedSum, Tolerance) {
   stock = promo.getElementsByClassName("ftx-03 ac");
   NoStock = 0;
   price = new Array(list.length);
+  book = new Array(list.length);
   for (var i = 0; i < list.length; i++) {
     if (stock[i].textContent == "无货") {
       NoStock++;
       continue;
     }
     price[i - NoStock] = parseFloat(list[i].textContent.match(/\d+\.\d+/g));
+    book[i - NoStock] = promo.getElementsByClassName("p-name")[i].innerText;
   }
   price = price.splice(0, list.length - NoStock);
-  isSuccess = 1;
-  n = 1000000;
+  book = book.splice(0, list.length - NoStock);
+  NotEND = 1;
+  n = 10*2**price.length;
 
   pool = price;
   backup = new Array(list.length);
   backup.fill(0);
 
-  sum = (accumulator, currentValue) => accumulator + currentValue;
+  sum = (accumulator, currentValue) => accumulator + currentValue; //数组求和
   price.reduce(sum);
 
-
-  while (isSuccess && n) {
+  while (NotEND && n) {
     n--;
     t = pool.reduce(sum);
     t = Math.round(t * 100) / 100.00;
@@ -48,24 +50,23 @@ function jd_book(PromoName, ExpectedSum, Tolerance) {
       pool[i] = temp2;
       backup[i] = temp1;
     } else
-      isSuccess = 0;
-
+      NotEND = 0;
   };
 
-  stack_final = pool.filter(function(element) {
-    return element > 0;
-  });
+  //stack_final = pool.filter(function(element) {
+  //  return element > 0;
+  //});
   if (n == 0) {
     console.log("组合失败!\n");
   } else {
-    console.log("总共" + stack_final.length + "本书：" + t + "元。\n");
-
-    var str = "";
-    for (var i = 0; i < stack_final.length - 1; i++) {
-      str += stack_final[i] + "元|";
+    j=0;
+    for (var i = 0; i < pool.length; i++) {
+      if (pool[i]>0){
+        console.log(pool[i]+"元:"+book[i]);
+        j++;
+      }
     }
-    str += stack_final[i] + "元\n";
+    console.log("总共" + j + "本书：" + t + "元。\n");
   }
-  console.log(str);
 }
 ```
