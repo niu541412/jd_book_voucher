@@ -44,7 +44,7 @@ function jd_book(PromoName, ExpectedSum, Tolerance) {
     t = pool.reduce(sum);
     t = Math.round(t * 100) / 100.00;
     if (t > ExpectedSum + Tolerance || t < ExpectedSum - Tolerance) {
-      i = Math.floor(Math.random() * 18);
+      i = Math.floor(Math.random() * poor.length);
       temp1 = pool[i];
       temp2 = backup[i];
       pool[i] = temp2;
@@ -53,9 +53,6 @@ function jd_book(PromoName, ExpectedSum, Tolerance) {
       NotEND = 0;
   };
 
-  //stack_final = pool.filter(function(element) {
-  //  return element > 0;
-  //});
   if (n == 0) {
     console.log("组合失败!\n");
   } else {
