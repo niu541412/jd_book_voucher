@@ -1,60 +1,68 @@
 京东图书优惠券满减快速凑整
 
-在JavaScript代码内修改促销的ID号后，在浏览器console内获取促销图书的价格列表。
+在JavaScript代码内修改促销的ID号后，在浏览器console内获取促销图书的价格列表。已考虑缺货货品。
+最后如果凑整成功，会打印结果。
+用法: jd_book(PromoName, ExpectedSum, Tolerance) , 比如 jd_book("product_promo_50008500387",600,3);
+三个参数，PromoName是促销的ID,可以从网页查到，ExpectedSum是目标价格，Tolerance是可以容忍的偏差。
+
+
 #javascript代码
 
 ```javascript
-promo = document.getElementById("product_promo_50008500387");
-list = promo.getElementsByClassName("plus-switch");
-var price = new Array(list.length);
-for (var i = 0; i < list.length; i++) {
-  price[i] = parseFloat(list[i].textContent.match(/\d+\.\d+/g));
-}
-console.log(price);
-```
+function jd_book(PromoName, ExpectedSum, Tolerance) {
+  promo = document.getElementById(PromoName);
+  list = promo.getElementsByClassName("plus-switch");
+  stock = promo.getElementsByClassName("ftx-03 ac");
+  NoStock = 0;
+  for (var i = 0; i < list.length; i++) {
+    if (stock[i].textContent == "无货") {
+      NoStock++;
+      continue;
+    }
+    price[i - NoStock] = parseFloat(list[i].textContent.match(/\d+\.\d+/g));
+  }
+  price.splice(0, list.length - NoStock);
+  //console.log(price);
+  isSuccess = 1;
+  n = 1000000;
 
-以下实际是S-lang语言的代码，类C。
-最后如果凑整成功，会打印结果。
-两个参数sum_expect是目标价格,tolerance是可以容忍的偏差。stack_1是上面代码获取的初始价格单
-以后会改成JavaScript版本并考虑缺货货品，方便运行。
+  pool = price;
+  backup = new Array(list.length);
+  backup.fill(0);
+
+  sum = (accumulator, currentValue) => accumulator + currentValue;
+  price.reduce(sum);
 
 
-```c
-define jd_book(sum_expect,tolerance)
-{
-        isSuccess = 1;
-        n = 100000;
+  while (isSuccess && n) {
+    n--;
+    t = pool.reduce(sum);
+    t = Math.round(t * 100) / 100.00;
+    if (t > ExpectedSum + Tolerance || t < ExpectedSum - Tolerance) {
+      i = Math.floor(Math.random() * 18);
+      temp1 = pool[i];
+      temp2 = backup[i];
+      pool[i] = temp2;
+      backup[i] = temp1;
+    } else
+      isSuccess = 0;
 
-        stack_1=[207, 33.8, 115.2, 58.7, 36.5, 62.8, 87.5, 45.6, 171, 27.4, 261.6];
-        stack_2 = Double_Type [length(stack_1)];
-        while (isSuccess && n)
-        {
-                n--;
-                t = sum(stack_1);
-                if (t > sum_expect+tolerance||t< sum_expect-tolerance)
-                {
-                        i = int((urand()*18));
-                        temp1 = stack_1[i];
-                        temp2 = stack_2[i];
-                        stack_1[i] = temp2;
-                        stack_2[i] = temp1;
-                }
-                else
-                        isSuccess = 0;
+  };
 
-        };
+  stack_final = pool.filter(function(element) {
+    return element > 0;
+  });
+  if (n == 0) {
+    console.log("组合失败!\n");
+  } else {
+    console.log("总共" + stack_final.length + "本书：" + t + "元。\n");
 
-        stack_final=stack_1[where(stack_1!=0)];
-        sum_final=sum(stack_final);
-        if(n==0)
-        {
-                ()=printf("组合失败!\n");
-        }
-        else
-        {
-                ()=printf("总和:%.1f元。\n",sum_final);
-                for(i=0; i<length(stack_final)-1; i++) ()=printf("%.1f元|",stack_final[i]);
-                ()=printf("%.1f元\n",stack_final[-1]);
-        }
+    var str = "";
+    for (var i = 0; i < stack_final.length - 1; i++) {
+      str += stack_final[i] + "元|";
+    }
+    str += stack_final[i] + "元\n";
+  }
+  console.log(str);
 }
 ```
