@@ -13,12 +13,12 @@
 
 ```javascript
 function jd_book(PromoName, ExpectedSum, Tolerance) {
-  promo = document.getElementById(PromoName);
-  list = promo.getElementsByClassName("plus-switch");
-  stock = promo.getElementsByClassName("ftx-03 ac");
-  NoStock = 0;
-  price = new Array(list.length);
-  book = new Array(list.length);
+  var promo = document.getElementById(PromoName);
+  var list = promo.getElementsByClassName("plus-switch");
+  var stock = promo.getElementsByClassName("ftx-03 ac");
+  var NoStock = 0;
+  var price = new Array(list.length);
+  var book = new Array(list.length);
   for (var i = 0; i < list.length; i++) {
     if (stock[i].textContent == "无货") {
       NoStock++;
@@ -29,35 +29,36 @@ function jd_book(PromoName, ExpectedSum, Tolerance) {
   }
   price = price.splice(0, list.length - NoStock);
   book = book.splice(0, list.length - NoStock);
-  NotEND = 1;
-  n = 10*2**price.length;
+  var NotEND = 1;
+  var n = 10*2**price.length;
 
-  pool = price;
-  backup = new Array(list.length);
+  var pool = price;
+  var backup = new Array(list.length);
   backup.fill(0);
 
-  sum = (accumulator, currentValue) => accumulator + currentValue; //数组求和
+  var sum = (accumulator, currentValue) => accumulator + currentValue; //数组求和
   price.reduce(sum);
 
   while (NotEND && n) {
     n--;
-    t = pool.reduce(sum);
+    var t = pool.reduce(sum);
     t = Math.round(t * 100) / 100.00;
     if (t > ExpectedSum + Tolerance || t < ExpectedSum - Tolerance) {
       i = Math.floor(Math.random() * price.length);
-      temp1 = pool[i];
-      temp2 = backup[i];
+      var temp1 = pool[i];
+      var temp2 = backup[i];
       pool[i] = temp2;
       backup[i] = temp1;
-    } else
+    } else{
       NotEND = 0;
+    }
   };
 
   if (n == 0) {
     console.log("组合失败!\n");
   } else {
-    j=0;
-    for (var i = 0; i < pool.length; i++) {
+    var j=0;
+    for (i = 0; i < pool.length; i++) {
       if (pool[i]>0){
         console.log(pool[i]+"元:"+book[i]);
         j++;
