@@ -17,6 +17,7 @@ function jd_book(PromoName, ExpectedSum, Tolerance) {
   list = promo.getElementsByClassName("plus-switch");
   stock = promo.getElementsByClassName("ftx-03 ac");
   NoStock = 0;
+  price = new Array(list.length);
   for (var i = 0; i < list.length; i++) {
     if (stock[i].textContent == "无货") {
       NoStock++;
@@ -24,8 +25,7 @@ function jd_book(PromoName, ExpectedSum, Tolerance) {
     }
     price[i - NoStock] = parseFloat(list[i].textContent.match(/\d+\.\d+/g));
   }
-  price.splice(0, list.length - NoStock);
-  //console.log(price);
+  price = price.splice(0, list.length - NoStock);
   isSuccess = 1;
   n = 1000000;
 
