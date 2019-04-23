@@ -16,7 +16,7 @@ console.log(price);
 以下实际是S-lang语言的代码，类C。
 最后如果凑整成功，会打印结果。
 两个参数sum_expect是目标价格,tolerance是可以容忍的偏差。stack_1是上面代码获取的初始价格单
-以后会改成JavaScript版本，方便运行。
+以后会改成JavaScript版本并考虑缺货货品，方便运行。
 
 
 ```c
