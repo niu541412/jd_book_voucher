@@ -1,8 +1,11 @@
 京东图书优惠券满减快速凑整
 
 在JavaScript代码内修改促销的ID号后，在浏览器console内获取促销图书的价格列表。已考虑缺货货品。
+
 最后如果凑整成功，会打印结果。
-用法: jd_book(PromoName, ExpectedSum, Tolerance) , 比如 jd_book("product_promo_50008500387",600,3);
+
+用法: **jd_book(PromoName, ExpectedSum, Tolerance)** , 比如 jd_book("product_promo_50008500387",600,3);
+
 三个参数，PromoName是促销的ID,可以从网页查到，ExpectedSum是目标价格，Tolerance是可以容忍的偏差。
 
 
