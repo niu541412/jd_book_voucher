@@ -1,6 +1,7 @@
 京东图书优惠券满减快速凑整
-在JavaScript代码内修改促销的ID号后，在浏览器console内获取促销图书的价格列表。
 
+在JavaScript代码内修改促销的ID号后，在浏览器console内获取促销图书的价格列表。
+#javascript代码
 
 ```javascript
 promo = document.getElementById("product_promo_50008500387");
@@ -12,9 +13,10 @@ for (var i = 0; i < list.length; i++) {
 console.log(price);
 ```
 
-实际是S-lang语言的代码，类C。
+以下实际是S-lang语言的代码，类C。
 最后如果凑整成功，会打印结果。
 两个参数sum_expect是目标价格,tolerance是可以容忍的偏差。
+以后会改成JavaScript版本，方便运行。
 
 
 ```c
