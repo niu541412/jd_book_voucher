@@ -10,4 +10,4 @@
 
 三个参数，PromoName是促销的ID,可以从网页代码查到，ExpectedSum是目标价格，Tolerance是可以容忍的偏差价格。
 
-下载地址[Greasyfork](https://greasyfork.org/scripts/382167)
+下载地址    [Greasyfork](https://greasyfork.org/scripts/382167)
